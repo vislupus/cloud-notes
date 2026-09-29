@@ -91,6 +91,8 @@ The container listens on `$PORT` (default `8000`).
 3. When prompted, set `DATABASE_URL` to the Neon connection string. It is
    declared with `sync: false`, so the value lives only in Render and never in
    the repository.
+4. Every push to `main` deploys automatically once its GitHub checks (the
+   Tests workflow) pass (`autoDeployTrigger: checksPass`).
 
 ## Configuration
 

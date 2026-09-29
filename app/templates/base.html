@@ -3,18 +3,30 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
   <title>{% block title %}Cloud Notes{% endblock %}</title>
   <link rel="stylesheet" href="/static/style.css">
 </head>
 <body>
   <header class="site-header">
     <div class="container header-inner">
-      <a class="brand" href="/">Cloud Notes</a>
-      <a class="button" href="/notes/new">New note</a>
+      <a class="brand" href="/">
+        <svg class="brand-logo" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M7 18a5 5 0 0 1-.6-9.96A6 6 0 0 1 17.8 8.1 4.5 4.5 0 0 1 17.5 18H7z"/>
+        </svg>
+        <span>Cloud Notes</span>
+      </a>
+      <a class="button" href="/notes/new" aria-label="New note">
+        <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+        <span>New note</span>
+      </a>
     </div>
   </header>
   <main class="container">
     {% block content %}{% endblock %}
   </main>
+  <footer class="site-footer">
+    <div class="container">Cloud Notes</div>
+  </footer>
 </body>
 </html>

@@ -1,22 +1,33 @@
 {% extends "base.html" %}
 {% block title %}{{ "Edit note" if note else "New note" }} · Cloud Notes{% endblock %}
 {% block content %}
-<h1>{{ "Edit note" if note else "New note" }}</h1>
-{% if errors %}
-<div class="errors" role="alert">
-  <ul>
-    {% for error in errors %}<li>{{ error }}</li>{% endfor %}
-  </ul>
-</div>
-{% endif %}
-<form class="note-form" method="post" action="{{ '/notes/%d' % note.id if note else '/notes' }}">
-  <label for="title">Title</label>
-  <input id="title" name="title" type="text" value="{{ title }}" maxlength="{{ title_max_length }}" required autofocus>
-  <label for="content">Content</label>
-  <textarea id="content" name="content" rows="12">{{ content }}</textarea>
-  <div class="form-actions">
-    <button type="submit" class="button">{{ "Save changes" if note else "Create note" }}</button>
-    <a class="button button-secondary" href="/">Cancel</a>
+<div class="form-wrap">
+  <a class="back-link" href="/">&larr; All notes</a>
+  <div class="page-head">
+    <h1>{{ "Edit note" if note else "New note" }}</h1>
   </div>
-</form>
+  {% if errors %}
+  <div class="errors" role="alert">
+    <ul>
+      {% for error in errors %}<li>{{ error }}</li>{% endfor %}
+    </ul>
+  </div>
+  {% endif %}
+  <form class="note-form card" method="post" action="{{ '/notes/%d' % note.id if note else '/notes' }}">
+    <div class="field">
+      <label for="title">Title</label>
+      <input id="title" name="title" type="text" value="{{ title }}" maxlength="{{ title_max_length }}"
+             placeholder="Give your note a title" required autofocus>
+      <small class="hint">Up to {{ title_max_length }} characters.</small>
+    </div>
+    <div class="field">
+      <label for="content">Content</label>
+      <textarea id="content" name="content" rows="12" placeholder="Write something…">{{ content }}</textarea>
+    </div>
+    <div class="form-actions">
+      <a class="button button-secondary" href="/">Cancel</a>
+      <button type="submit" class="button">{{ "Save changes" if note else "Create note" }}</button>
+    </div>
+  </form>
+</div>
 {% endblock %}
