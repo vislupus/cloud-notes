@@ -86,7 +86,8 @@ The container listens on `$PORT` (default `8000`).
 1. Create a Neon project and copy its connection string
    (`postgresql://USER:PASSWORD@HOST.neon.tech/DBNAME?sslmode=require`).
 2. In Render, create a new **Blueprint** from this repository. `render.yaml`
-   defines a Docker web service with `/health` as its health check.
+   defines a Docker web service in the Frankfurt region (keep it in the
+   same area as your Neon database) with `/health` as its health check.
 3. When prompted, set `DATABASE_URL` to the Neon connection string. It is
    declared with `sync: false`, so the value lives only in Render and never in
    the repository.
