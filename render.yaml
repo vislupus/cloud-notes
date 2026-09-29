@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: cloud-notes
+    runtime: docker
+    dockerfilePath: ./Dockerfile
+    plan: free
+    healthCheckPath: /health
+    autoDeploy: true
+    envVars:
+      # Neon connection string. Set it in the Render dashboard;
+      # sync: false keeps the value out of this file.
+      - key: DATABASE_URL
+        sync: false
