@@ -36,6 +36,7 @@ DATABASE_URL=postgresql://... uvicorn app.main:app --reload
 - No JavaScript. Forms use plain `POST`; updates go to `POST /notes/{id}` and
   deletes to `POST /notes/{id}/delete`, each redirecting with `303`.
 - Validation errors re-render the form with status `422`.
+- Delete confirmation uses a `<details>` popover in `index.html`, not JS.
 - Keep runtime dependencies in `requirements.txt` (pinned) and test-only
   dependencies in `requirements-dev.txt`.
 - Reference static files with root-relative paths (`/static/...`), not
@@ -59,3 +60,5 @@ DATABASE_URL=postgresql://... uvicorn app.main:app --reload
 - Hosting: Render (Frankfurt region, near the EU Neon database), Docker
   runtime, defined in `render.yaml`. Health check path
   is `/health`, which pings the database.
+- Pushes to `main` auto-deploy only after GitHub checks pass
+  (`autoDeployTrigger: checksPass`), so a red Tests workflow blocks the deploy.

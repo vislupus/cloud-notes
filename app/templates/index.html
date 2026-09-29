@@ -1,6 +1,9 @@
 {% extends "base.html" %}
 {% block content %}
-<h1>Notes</h1>
+<div class="page-head">
+  <h1>Notes</h1>
+  {% if notes %}<span class="count">{{ notes|length }} {{ "note" if notes|length == 1 else "notes" }}</span>{% endif %}
+</div>
 {% if notes %}
 <ul class="notes">
   {% for note in notes %}
@@ -9,22 +12,39 @@
       <h2 class="note-title">{{ note.title }}</h2>
       {% if note.content %}<p class="note-content">{{ note.content }}</p>{% endif %}
       <footer class="note-meta">
-        <span>Created {{ note.created_at.strftime("%Y-%m-%d %H:%M") }}</span>
+        <time datetime="{{ note.created_at.isoformat() }}">Created {{ note.created_at.strftime("%d %b %Y, %H:%M") }}</time>
         {% if note.updated_at != note.created_at %}
-        <span>Updated {{ note.updated_at.strftime("%Y-%m-%d %H:%M") }}</span>
+        <time datetime="{{ note.updated_at.isoformat() }}">Updated {{ note.updated_at.strftime("%d %b %Y, %H:%M") }}</time>
         {% endif %}
       </footer>
       <div class="note-actions">
-        <a class="button button-secondary" href="/notes/{{ note.id }}/edit">Edit</a>
-        <form method="post" action="/notes/{{ note.id }}/delete">
-          <button type="submit" class="button button-danger">Delete</button>
-        </form>
+        <a class="button button-secondary button-small" href="/notes/{{ note.id }}/edit">
+          <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20h4L19 9l-4-4L4 16v4zM13.5 6.5l4 4"/></svg>
+          <span>Edit</span>
+        </a>
+        <details class="confirm">
+          <summary class="button button-ghost-danger button-small">
+            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg>
+            <span>Delete</span>
+          </summary>
+          <form class="confirm-panel" method="post" action="/notes/{{ note.id }}/delete">
+            <span>Delete this note?</span>
+            <button type="submit" class="button button-danger button-small">Yes, delete</button>
+          </form>
+        </details>
       </div>
     </article>
   </li>
   {% endfor %}
 </ul>
 {% else %}
-<p class="empty">No notes yet. <a href="/notes/new">Create your first note.</a></p>
+<section class="empty">
+  <svg class="empty-art" viewBox="0 0 24 24" aria-hidden="true">
+    <path d="M7 18a5 5 0 0 1-.6-9.96A6 6 0 0 1 17.8 8.1 4.5 4.5 0 0 1 17.5 18H7z"/>
+  </svg>
+  <h2>No notes yet</h2>
+  <p>Capture your first idea — it will be saved to the cloud.</p>
+  <a class="button" href="/notes/new">Create your first note</a>
+</section>
 {% endif %}
 {% endblock %}

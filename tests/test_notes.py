@@ -60,6 +60,21 @@ def test_create_note_rejects_long_title(client, db):
     assert all_notes(db) == []
 
 
+def test_list_shows_note_count(client):
+    create(client, title="One")
+    assert "1 note<" in client.get("/").text
+    create(client, title="Two")
+    assert "2 notes<" in client.get("/").text
+
+
+def test_list_has_delete_confirmation(client, db):
+    create(client, title="Confirm me")
+    note = all_notes(db)[0]
+    page = client.get("/").text
+    assert "Delete this note?" in page
+    assert f'action="/notes/{note.id}/delete"' in page
+
+
 def test_list_escapes_html(client):
     create(client, title="<script>alert(1)</script>")
     page = client.get("/")

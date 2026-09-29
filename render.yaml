@@ -7,7 +7,9 @@ services:
     # Keep the service close to the Neon database in Europe.
     region: frankfurt
     healthCheckPath: /health
-    autoDeploy: true
+    # Deploy on every push to main, but only after GitHub checks
+    # (the Tests workflow) pass.
+    autoDeployTrigger: checksPass
     envVars:
       # Neon connection string. Set it in the Render dashboard;
       # sync: false keeps the value out of this file.
