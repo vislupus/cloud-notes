@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Notes</h1>
+{% if notes %}
+<ul class="notes">
+  {% for note in notes %}
+  <li class="note">
+    <article>
+      <h2 class="note-title">{{ note.title }}</h2>
+      {% if note.content %}<p class="note-content">{{ note.content }}</p>{% endif %}
+      <footer class="note-meta">
+        <span>Created {{ note.created_at.strftime("%Y-%m-%d %H:%M") }}</span>
+        {% if note.updated_at != note.created_at %}
+        <span>Updated {{ note.updated_at.strftime("%Y-%m-%d %H:%M") }}</span>
+        {% endif %}
+      </footer>
+      <div class="note-actions">
+        <a class="button button-secondary" href="/notes/{{ note.id }}/edit">Edit</a>
+        <form method="post" action="/notes/{{ note.id }}/delete">
+          <button type="submit" class="button button-danger">Delete</button>
+        </form>
+      </div>
+    </article>
+  </li>
+  {% endfor %}
+</ul>
+{% else %}
+<p class="empty">No notes yet. <a href="/notes/new">Create your first note.</a></p>
+{% endif %}
+{% endblock %}

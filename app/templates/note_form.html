@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}{{ "Edit note" if note else "New note" }} · Cloud Notes{% endblock %}
+{% block content %}
+<h1>{{ "Edit note" if note else "New note" }}</h1>
+{% if errors %}
+<div class="errors" role="alert">
+  <ul>
+    {% for error in errors %}<li>{{ error }}</li>{% endfor %}
+  </ul>
+</div>
+{% endif %}
+<form class="note-form" method="post" action="{{ '/notes/%d' % note.id if note else '/notes' }}">
+  <label for="title">Title</label>
+  <input id="title" name="title" type="text" value="{{ title }}" maxlength="{{ title_max_length }}" required autofocus>
+  <label for="content">Content</label>
+  <textarea id="content" name="content" rows="12">{{ content }}</textarea>
+  <div class="form-actions">
+    <button type="submit" class="button">{{ "Save changes" if note else "Create note" }}</button>
+    <a class="button button-secondary" href="/">Cancel</a>
+  </div>
+</form>
+{% endblock %}
