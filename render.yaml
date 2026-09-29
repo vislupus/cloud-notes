@@ -4,6 +4,8 @@ services:
     runtime: docker
     dockerfilePath: ./Dockerfile
     plan: free
+    # Keep the service close to the Neon database in Europe.
+    region: frankfurt
     healthCheckPath: /health
     autoDeploy: true
     envVars:

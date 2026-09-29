@@ -56,5 +56,6 @@ DATABASE_URL=postgresql://... uvicorn app.main:app --reload
 
 - Production database: PostgreSQL on Neon (connection string must include
   `sslmode=require`).
-- Hosting: Render, Docker runtime, defined in `render.yaml`. Health check path
+- Hosting: Render (Frankfurt region, near the EU Neon database), Docker
+  runtime, defined in `render.yaml`. Health check path
   is `/health`, which pings the database.
